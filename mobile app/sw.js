@@ -1,6 +1,6 @@
 /* كاش بسيط: التطبيق بيشتغل أوفلاين بالكامل بعد أول فتحة */
-const CACHE = 'sage-v1';
-const FILES = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable.png','./mark.png'];
+const CACHE = 'sage-v3';
+const FILES = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable.png','./mark.png','./icon-180.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
