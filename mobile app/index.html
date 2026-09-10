@@ -6,10 +6,11 @@
 <meta name="theme-color" content="#100F0D">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="مِحَكّ">
+<meta name="apple-mobile-web-app-title" content="Sage">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
-<title>مِحَكّ</title>
+<link rel="icon" href="icon-192.png">
+<title>Sage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
@@ -35,8 +36,9 @@ i{font-style:normal}
 /* رأس */
 .top{display:flex;align-items:baseline;gap:.7rem;padding:1.2rem 1.15rem .9rem;
   border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ink);z-index:20}
-.top h1{font-family:var(--d);font-size:1.35rem;font-weight:600;line-height:1}
-.top span{font-size:.55rem;color:var(--brass);letter-spacing:.3em}
+.top .logo{width:26px;height:26px;border-radius:6px;flex:none;align-self:center}
+.top h1{font-family:var(--b);font-size:1.3rem;font-weight:700;line-height:1;letter-spacing:.02em}
+.top span{font-size:.68rem;color:var(--brass);letter-spacing:.1em}
 
 main{padding:0 1.15rem 3rem;max-width:820px;margin:0 auto}
 .hd{padding:1.8rem 0 1.2rem}
@@ -221,7 +223,7 @@ nav#nav button[aria-current="true"]{color:var(--brass);border-top-color:var(--br
 </style>
 </head>
 <body>
-<div class="top"><h1>مِحَكّ</h1><span>MIHAKK</span></div>
+<div class="top"><img src="mark.png" alt="" class="logo"><h1>Sage</h1><span>تدريب معرفي</span></div>
 <nav id="nav"></nav>
 <main id="main"></main>
 <div class="stage" id="stage">
@@ -509,7 +511,7 @@ function stampUTC(){
 function buildICS(){
   const now = new Date();
   const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mihakk//AR//','CALSCALE:GREGORIAN',
-                 'METHOD:PUBLISH','X-WR-CALNAME:مِحَكّ','X-WR-TIMEZONE:'+
+                 'METHOD:PUBLISH','X-WR-CALNAME:Sage','X-WR-TIMEZONE:'+
                  (Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC')];
 
   /* بند لكل يوم في الأسبوع، بيتكرر أسبوعيًا */
@@ -522,7 +524,7 @@ function buildICS(){
 
     for(const item of plan){
       const why = WHY[item.id];
-      const uid = `mh-${d}-${item.key}-${Math.random().toString(36).slice(2,8)}@mihakk`;
+      const uid = `mh-${d}-${item.key}-${Math.random().toString(36).slice(2,8)}@sage`;
       lines.push('BEGIN:VEVENT',
         'UID:'+uid,
         'DTSTAMP:'+stampUTC(),
@@ -544,7 +546,7 @@ function downloadICS(){
   const blob = new Blob([buildICS()], {type:'text/calendar;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = 'mihakk.ics';
+  a.href = url; a.download = 'sage.ics';
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(url), 4000);
 }
@@ -768,7 +770,7 @@ function viewGauge(){
 /* ═══════════ الحدود ═══════════ */
 function viewLimits(){
   return `<div class="hd"><div class="eyebrow">الحدود</div>
-    <h2 class="title">اللي التطبيق ده<br>مش هيعمله</h2>
+    <h2 class="title">اللي Sage<br>مش هيعمله</h2>
     <p class="lede">أي حاجة في المجال ده مش بتقولك حدودها، بتبيعلك.</p></div>
     ${LIMITS.map(l=>`<div class="limit"><h3>${l.t}</h3><p>${l.p}</p>
       <p class="yes">${l.yes}</p>${l.ref!=='—'?`<div class="wref">${l.ref}</div>`:''}</div>`).join('')}

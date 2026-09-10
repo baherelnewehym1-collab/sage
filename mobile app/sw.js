@@ -1,6 +1,6 @@
 /* كاش بسيط: التطبيق بيشتغل أوفلاين بالكامل بعد أول فتحة */
-const CACHE = 'mihakk-v1';
-const FILES = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+const CACHE = 'sage-v1';
+const FILES = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable.png','./mark.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
