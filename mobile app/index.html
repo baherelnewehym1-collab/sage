@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100F0D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مِحَكّ">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>مِحَكّ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#100F0D;--ink2:#171613;--ink3:#1E1C19;--line:#2E2B26;--line2:#413D36;
+  --bone:#EFEBE0;--bone2:#B5AFA1;--bone3:#7C766A;
+  --brass:#C2A15C;--jade:#6E9478;--rust:#A8543F;
+  --d:"Reem Kufi",serif;--b:"Almarai",-apple-system,system-ui,sans-serif;
+  --nav:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--ink);color:var(--bone);font-family:var(--b);font-weight:300;
+  line-height:1.8;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
+  padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom));min-height:100vh}
+button,input{font-family:inherit;font-size:inherit}
+button{cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:1px solid var(--brass);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+::selection{background:rgba(194,161,92,.25)}
+i{font-style:normal}
+
+/* رأس */
+.top{display:flex;align-items:baseline;gap:.7rem;padding:1.2rem 1.15rem .9rem;
+  border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ink);z-index:20}
+.top h1{font-family:var(--d);font-size:1.35rem;font-weight:600;line-height:1}
+.top span{font-size:.55rem;color:var(--brass);letter-spacing:.3em}
+
+main{padding:0 1.15rem 3rem;max-width:820px;margin:0 auto}
+.hd{padding:1.8rem 0 1.2rem}
+.eyebrow{font-size:.72rem;color:var(--brass);letter-spacing:.18em;margin-bottom:.5rem}
+h2.title{font-family:var(--d);font-size:clamp(1.7rem,7vw,2.5rem);font-weight:500;
+  line-height:1.2;letter-spacing:-.01em;margin-bottom:.7rem}
+.lede{font-size:.94rem;color:var(--bone2);line-height:1.95;max-width:58ch}
+.sec{font-family:var(--d);font-size:1rem;font-weight:500;color:var(--brass);
+  margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+
+.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:1.4rem}
+.gauge{background:var(--ink);padding:.95rem .7rem}
+.gauge b{display:block;font-family:var(--d);font-size:1.75rem;font-weight:500;
+  color:var(--brass);line-height:1}
+.gauge b i{font-family:var(--b);font-size:.85rem;color:var(--bone3)}
+.gauge span{display:block;font-size:.7rem;color:var(--bone3);margin-top:.35rem}
+
+.notice{border:1px solid var(--line2);padding:.8rem .95rem;margin-bottom:1.2rem;
+  font-size:.85rem;color:var(--bone2);line-height:1.8}
+.notice button{color:var(--brass);text-decoration:underline;text-underline-offset:3px;font-size:.85rem}
+
+/* الجدول */
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:64px 1fr auto;gap:.7rem;padding:.95rem 0;
+  border-bottom:1px solid var(--line);align-items:start}
+.row .tm{font-size:.78rem;color:var(--bone3);padding-top:.28rem;white-space:nowrap}
+.row .rn{font-size:1rem;line-height:1.5}
+.row .rn .mins{font-size:.72rem;color:var(--bone3);margin-inline-start:.5rem}
+.row .rh{font-size:.8rem;color:var(--bone3);line-height:1.65;margin-top:.05rem}
+.row.fixed{opacity:.55}.row.fixed .rn{color:var(--bone2)}
+.row.past{opacity:.5}
+.row.done .rn{color:var(--bone3);text-decoration:line-through;text-decoration-color:var(--line2)}
+.row.next{background:var(--ink2);box-shadow:inset 2px 0 0 var(--brass);
+  margin:0 -1.15rem;padding-inline:1.15rem}
+.row .ra{display:flex;gap:.45rem;align-items:center;padding-top:.15rem}
+.act{font-size:.76rem;border:1px solid var(--line2);padding:.28rem .6rem;color:var(--bone2)}
+.act:active{border-color:var(--brass);color:var(--brass)}
+.tick{width:34px;height:34px;border:1px solid var(--line2);display:grid;place-items:center;flex:none}
+.tick svg{width:14px;height:14px;stroke:var(--bone3);stroke-width:2.4;fill:none;opacity:.35}
+.tick.on{background:var(--jade);border-color:var(--jade)}
+.tick.on svg{stroke:var(--ink);opacity:1}
+.whyb{font-size:.75rem;color:var(--brass);margin-top:.45rem;
+  border-bottom:1px solid rgba(194,161,92,.35);padding-bottom:1px}
+
+/* ليه */
+.why{border-inline-start:2px solid var(--brass);padding-inline-start:.9rem;margin:.9rem 0 .3rem}
+.wrow{margin-bottom:.75rem}
+.wl{display:block;font-size:.68rem;color:var(--brass);letter-spacing:.14em;margin-bottom:.15rem}
+.why p{font-size:.87rem;color:var(--bone2);line-height:1.95}
+.why b{font-weight:400;color:var(--bone)}
+.wref{font-size:.75rem;color:var(--bone3);border-top:1px solid var(--line);padding-top:.5rem;margin-top:.3rem}
+
+/* الخطة */
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.fields label{font-size:.8rem;color:var(--bone3);display:flex;flex-direction:column;gap:.35rem}
+.fields input,.addbox input{background:var(--ink2);border:1px solid var(--line2);
+  color:var(--bone);padding:.6rem .7rem;font-size:.95rem;width:100%}
+.ev{display:flex;align-items:center;gap:.7rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.ev b{font-weight:400;font-size:.97rem;display:block}
+.ev span{font-size:.78rem;color:var(--bone3)}
+.del{font-size:.78rem;color:var(--rust);margin-inline-start:auto}
+.none{font-size:.87rem;color:var(--bone3);padding:.8rem 0}
+.addbox{border:1px solid var(--line);padding:.95rem;margin-top:1rem;display:grid;gap:.6rem}
+.addbox .two{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.days{display:flex;gap:.3rem;flex-wrap:wrap}
+.dbtn{font-size:.76rem;border:1px solid var(--line2);padding:.3rem .55rem;color:var(--bone3)}
+.dbtn.on{background:var(--brass);border-color:var(--brass);color:var(--ink)}
+.pri{background:var(--bone);color:var(--ink);padding:.6rem 1.3rem;font-size:.9rem;font-weight:400}
+.pri:active{background:var(--brass)}
+.wide{width:100%}
+.chips{display:flex;gap:.35rem;flex-wrap:wrap}
+.chip{font-size:.8rem;border:1px solid var(--line2);padding:.32rem .7rem;color:var(--bone)}
+.chip.off{color:var(--bone3);opacity:.45;text-decoration:line-through}
+.hint{font-size:.76rem;color:var(--bone3);margin-top:.5rem}
+.notify{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.nb{background:var(--ink);padding:1rem}
+.nb b{font-weight:400;font-size:.97rem;display:block;margin-bottom:.3rem}
+.nb p{font-size:.83rem;color:var(--bone3);line-height:1.8;margin-bottom:.7rem}
+.nb button{border:1px solid var(--line2);padding:.45rem 1rem;font-size:.85rem;color:var(--bone2)}
+.ok{color:var(--jade)}.no{color:var(--rust)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.wd{background:var(--ink);padding:.7rem .3rem;text-align:center}
+.wd span{display:block;font-size:.66rem;color:var(--bone3)}
+.wd b{font-family:var(--d);font-size:1.15rem;color:var(--brass);font-weight:500}
+
+/* التمارين */
+.cards{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--ink);padding:1.25rem 1.1rem}
+.card .dom{font-size:.68rem;color:var(--brass);letter-spacing:.13em;margin-bottom:.2rem}
+.card h3{font-family:var(--d);font-size:1.2rem;font-weight:500;margin-bottom:.35rem}
+.card p{font-size:.86rem;color:var(--bone2);line-height:1.8}
+.cmeta{display:flex;align-items:baseline;gap:.55rem;margin-top:.9rem}
+.bg{font-family:var(--d);font-size:1.5rem;color:var(--brass);line-height:1}
+.bl{font-size:.74rem;color:var(--bone3)}
+.crow{display:flex;gap:.5rem;margin-top:1rem}
+.crow button:not(.pri){border:1px solid var(--line2);padding:.6rem 1rem;font-size:.85rem;color:var(--bone2)}
+
+/* القياس */
+.chart{border:1px solid var(--line);padding:1.1rem;margin-bottom:1px;background:var(--ink2)}
+.ch{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.8rem;flex-wrap:wrap}
+.ch h3{font-family:var(--d);font-size:1.05rem;font-weight:500}
+.ch .delta{font-size:.76rem;color:var(--jade)}
+.ch .now{font-family:var(--d);font-size:1.45rem;color:var(--brass);margin-inline-start:auto;line-height:1}
+.ch .now i{font-family:var(--b);font-size:.72rem;color:var(--bone3);margin-inline-start:.25rem}
+.cn{font-size:.74rem;color:var(--bone3);margin-top:.5rem}
+.empty{border:1px solid var(--line2);padding:1.6rem;color:var(--bone2);font-size:.9rem;line-height:1.95}
+
+/* الحدود */
+.limit{border-inline-start:2px solid var(--rust);padding-inline-start:1.1rem;margin-bottom:2rem}
+.limit h3{font-family:var(--d);font-size:1.1rem;font-weight:500;margin-bottom:.4rem}
+.limit p{font-size:.89rem;color:var(--bone2);line-height:1.95}
+.limit .yes{color:var(--jade);margin-top:.6rem}
+.closing{border-top:1px solid var(--line);padding-top:1.3rem;font-size:.92rem;
+  color:var(--bone2);line-height:2}
+.closing b{font-weight:400;color:var(--bone)}
+
+/* الملاحة السفلية */
+nav#nav{position:fixed;bottom:0;inset-inline:0;height:calc(var(--nav) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);background:var(--ink2);
+  border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:30}
+nav#nav button{font-size:.74rem;color:var(--bone3);display:grid;place-items:center;
+  border-top:2px solid transparent;margin-top:-1px}
+nav#nav button[aria-current="true"]{color:var(--brass);border-top-color:var(--brass)}
+
+/* المشهد */
+.stage{position:fixed;inset:0;background:var(--ink);z-index:60;display:none;flex-direction:column;
+  padding:calc(1rem + env(safe-area-inset-top)) 1.15rem calc(1rem + env(safe-area-inset-bottom))}
+.stage.open{display:flex}
+.sh{display:flex;align-items:baseline;gap:.8rem;border-bottom:1px solid var(--line);padding-bottom:.8rem}
+.sh h3{font-family:var(--d);font-size:1.15rem;font-weight:500}
+.sh .lvl{font-size:.78rem;color:var(--brass)}
+.sh button{margin-inline-start:auto;font-size:.83rem;color:var(--bone3)}
+.arena{flex:1;display:grid;place-items:center;text-align:center;overflow-y:auto;padding:1.2rem 0}
+.arena .inner{width:100%;max-width:560px}
+.cue{font-size:.9rem;color:var(--bone2);line-height:1.95;margin-bottom:1.6rem}
+.cue b{font-weight:400;color:var(--bone)}
+.sm2{font-size:.8rem;color:var(--bone3)}
+.big{font-family:var(--d);font-size:clamp(2.8rem,15vw,5rem);font-weight:500;
+  letter-spacing:.1em;line-height:1.15;min-height:1.2em}
+.big i{font-family:var(--b);font-size:.28em;color:var(--bone3)}
+.big.sm{font-size:clamp(1.25rem,5vw,1.9rem);letter-spacing:0;line-height:1.75}
+.entry{width:100%;max-width:400px;margin:1.4rem auto 0;font-size:1.1rem;color:var(--bone);
+  background:transparent;border:none;border-bottom:1px solid var(--line2);padding:.55rem .3rem;
+  text-align:center;outline:none;letter-spacing:.08em;display:block}
+.entry:focus{border-bottom-color:var(--brass)}
+.got{font-size:1rem;color:var(--jade);min-height:2.2em;margin-top:.9rem;line-height:1.8}
+.acts{display:flex;gap:.55rem;justify-content:center;margin-top:1.8rem;flex-wrap:wrap}
+.acts button:not(.pri){border:1px solid var(--line2);padding:.55rem 1.3rem;font-size:.88rem;color:var(--bone2)}
+.opts{display:grid;gap:.5rem;max-width:400px;margin:1.4rem auto 0}
+.opts.four{grid-template-columns:1fr 1fr}
+.opts button{border:1px solid var(--line2);padding:.8rem 1rem;font-size:.97rem;color:var(--bone2)}
+.opts button:active{border-color:var(--brass);color:var(--brass)}
+.conf{display:flex;gap:.3rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem}
+.conf button{border:1px solid var(--line);padding:.5rem .8rem;font-size:.88rem;color:var(--bone3)}
+.conf button:active{border-color:var(--brass);color:var(--brass)}
+.verdict{font-size:1rem;margin-top:1.2rem;line-height:1.9}
+.verdict.ok{color:var(--jade)}.verdict.no{color:var(--rust)}
+.swatches{display:flex;gap:1.2rem;justify-content:center;margin:1rem 0}
+.swatches button{width:min(38vw,120px);height:min(38vw,120px);border:1px solid var(--line2)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,80px));gap:6px;
+  justify-content:center;margin:1rem auto}
+.grid3 i{aspect-ratio:1;border:1px solid var(--line);background:var(--ink2)}
+.grid3 i.lit{background:var(--brass);border-color:var(--brass)}
+.progress{height:2px;background:var(--line);margin-top:1.4rem}
+.progress i{display:block;height:100%;background:var(--brass);width:0;transition:width .3s}
+
+@media (min-width:760px){
+  :root{--nav:0px}
+  body{padding-bottom:0}
+  .top{padding:1.4rem 2rem 1rem}
+  nav#nav{position:sticky;top:0;height:auto;padding:0;grid-template-columns:none;
+    display:flex;gap:.2rem;justify-content:center;border-top:none;border-bottom:1px solid var(--line);
+    background:var(--ink);z-index:19}
+  nav#nav button{padding:.7rem 1.1rem;font-size:.87rem;border-top:none;border-bottom:2px solid transparent;margin:0}
+  nav#nav button[aria-current="true"]{border-bottom-color:var(--brass)}
+  main{padding:0 2rem 4rem}
+  .cards{grid-template-columns:1fr 1fr}
+  .notify{grid-template-columns:1fr 1fr}
+  .row.next{margin:0 -1rem;padding-inline:1rem}
+}
+</style>
+</head>
+<body>
+<div class="top"><h1>مِحَكّ</h1><span>MIHAKK</span></div>
+<nav id="nav"></nav>
+<main id="main"></main>
+<div class="stage" id="stage">
+  <div class="sh"><h3 id="s-name"></h3><span class="lvl" id="s-lvl"></span>
+    <button id="s-close">إنهاء</button></div>
+  <div class="arena"><div class="inner" id="s-body"></div></div>
+</div>
+<script>
+const S={g:(k,d)=>{try{const v=localStorage.getItem('mh:'+k);return v?JSON.parse(v):d}catch{return d}},
+        s:(k,v)=>{try{localStorage.setItem('mh:'+k,JSON.stringify(v))}catch{}}};
+const AR='٠١٢٣٤٥٦٧٨٩',ar=n=>String(n).replace(/\d/g,d=>AR[+d]);
+const today=()=>new Date().toISOString().slice(0,10);
+const rnd=n=>Math.floor(Math.random()*n);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+</script>
+<script>
+/* ═══ لكل حاجة: بتعمل إيه في دماغك، وإيه البحث اللي بيقول كده ═══ */
+
+const WHY = {
+span:{
+  does:'بيدرّب سعة الذاكرة العاملة — المساحة اللي بتمسك فيها معلومات وإنت بتشتغل عليها. دي المساحة اللي بتستخدمها لما تحسب في دماغك، أو تفتكر جملة وإنت بترد عليها، أو تمسك خيط كلام طويل.',
+  mech:'السعة الخام تقريبًا ثابتة (٧±٢). اللي بيتغيّر هو <b>الترميز</b>: إنك تحوّل الأرقام لوحدات أكبر مربوطة بمعرفة عندك أصلًا. الوحدة الواحدة بتشيل ٤ أرقام بدل واحد.',
+  study:'ستّة وعشرين شهر تدريب على طالب واحد عادي: بدأ عند ٧ أرقام ووصل ٧٩. ولمّا جرّبوه على حروف بدل أرقام رجع لـ٦ — يعني الجهاز ما اتغيرش، الطريقة هي اللي اتغيرت.',
+  ref:'Ericsson, Chase & Faloon 1980 — Science, vol 208'},
+palace:{
+  does:'بيدرّبك تحفظ قوايم طويلة بربطها بمكان تعرفه. دي الطريقة اللي بيحفظ بيها أبطال الذاكرة، وبتنفع في أي حاجة مرتّبة: نقط كلام، خطوات، أسماء.',
+  mech:'المخ بيحفظ الأماكن والصور أحسن بكتير من المجرّدات. لما تحط كلمة في محطة مكانية، بتستفيد من نظام تخزين قوي أصلًا بدل ما تحاول تحشر المعلومة في نظام ضعيف.',
+  study:'تصوير دماغي لعشرة من أبطال الذاكرة العالميين لقى إن تركيب مخهم عادي تمامًا — الفرق الوحيد إنهم بينشّطوا مناطق مكانية أثناء الحفظ. وتدريب مبتدئين على الطريقة نقلهم لأداء قريب منهم.',
+  ref:'Maguire et al. 2003 — Nature Neuroscience · Dresler et al. 2017 — Neuron'},
+calib:{
+  does:'بيقيس ويحسّن الفجوة بين ثقتك ودقّتك. دي مهارة بتأثر على كل قرار بتاخده — تقدير وقت مشروع، تقييم مخاطرة، الحكم على معلومة سمعتها.',
+  mech:'معظم الناس ثقتهم أعلى من دقّتهم. الارتجاع الفوري المتكرّر — تقول رقم وتعرف نتيجته فورًا — بيعدّل التقدير. ومن غير سجل مكتوب، الذاكرة بتعيد كتابة توقعاتك القديمة فما بتتعلّمش.',
+  study:'مشروع تنبؤ استمر سنين مع آلاف المتطوعين. مجموعة صغيرة تفوّقت باستمرار على المتوسط — وعلى محللين عندهم وصول لمعلومات سرّية. والتدريب على المعايرة كان من أوضح العوامل.',
+  ref:'Tetlock & Mellers — Good Judgment Project · Superforecasting (2015)'},
+nback:{
+  does:'بيدرّب التحديث المستمر: إنك تمسك معلومة وتبدّلها باستمرار من غير ما تتلخبط. ومفيد جدًا كـ<b>مقياس ليومك</b> — الرقم بيفرق بشكل واضح بين يوم نمت فيه كويس ويوم لأ.',
+  mech:'بيحمّل الذاكرة العاملة والانتباه التنفيذي مع بعض. التحسّن في التمرين نفسه سريع وواضح.',
+  study:'دراسة ٢٠٠٨ ادّعت إنه بيرفع الذكاء السائل، واتبنى عليها مجال تجاري كامل. التحليلات البعدية اللاحقة لقت إن الانتقال لقدرات عامة ضعيف جدًا أو معدوم. موجود هنا كتدريب انتباه ومقياس يومي، مش كرافع ذكاء.',
+  ref:'Jaeggi et al. 2008 · Melby-Lervåg & Hulme 2013 — تحليل بعدي'},
+stroop:{
+  does:'بيقيس قدرتك تكبح الاستجابة التلقائية. دي نفس القدرة اللي بتستخدمها لما تمنع نفسك ترد بعصبية، أو تقفل التليفون وترجع للشغل.',
+  mech:'قراءة الكلمة تلقائية ومستحيل توقفها، فلازم تكبحها عشان تقول اللون. القياس ده من أقدم وأثبت المقاييس في علم النفس المعرفي — عمره أكتر من ٩٠ سنة.',
+  study:'اتنشر ١٩٣٥ ولسه مستخدم لحد النهاردة في البحث والعيادة. الأداء عليه بيترابط مع مقاييس الضبط التنفيذي، وبيتأثر بوضوح بقلة النوم.',
+  ref:'Stroop 1935 — Journal of Experimental Psychology'},
+sense:{
+  does:'بيحسّن التمييز البصري نفسه — مش تفسيرك، حسّك. وده بينتقل مباشرة لأي شغل بصري: تدرّج الألوان، التركيب، فروق الإضاءة.',
+  mech:'التعلّم الإدراكي بيغيّر معالجة الإشارة في القشرة الحسية نفسها. التعرّض المتكرّر بارتجاع فوري وفرق بيضيق تدريجيًا هو الشرط.',
+  study:'موثّق عبر مجالات كتير: أخصائيو الأشعة، الذوّاقة، مراقبو الطيران. والتصوير الدماغي بيوري تغيّر في الاستجابة الحسية نفسها مش في مناطق القرار بس.',
+  ref:'Goldstone — Perceptual Learning, Annual Review of Psychology'},
+
+light:{
+  does:'بيضبط ساعتك البيولوجية، فبتنعس في ميعاد وتصحى بطاقة. أقوى مفتاح تحكّم في طاقتك، ومجاني.',
+  mech:'في شبكتك مستقبلات بتقيس شدة الضوء وبتبعت للنواة فوق التصالبية — ساعة الجسم. النور بدري بيقدّم إفراز الميلاتونين بالليل بساعات.',
+  study:'نور النهار حتى في يوم غايم أقوى بمرات كتير من أي إضاءة داخلية. الفرق في الشدّة بين برّه وجوّه أكبر من إن العين تحسّه، بس الساعة البيولوجية بتحسّه.',
+  ref:'أدبيات علم الأحياء الزمني — ضبط الإيقاع بالضوء'},
+breath:{
+  does:'بيهدّي جسمك بالإرادة في دقيقتين. أسرع أداة عندك وقت توتر حاد.',
+  mech:'الزفير الطويل بينشّط العصب الحائر فبيبطّئ النبض مباشرة. دي آلية فسيولوجية مقاسة، مش تشبيه.',
+  study:'التنفس البطيء (٥–٦ نفس في الدقيقة) بيرفع تغيّر معدل ضربات القلب — مؤشر على مرونة الجهاز العصبي اللاإرادي.',
+  ref:'مراجعات على التنفس البطيء و HRV'},
+move:{
+  does:'أقوى تدخّل مثبت على الوظائف التنفيذية والمزاج. أقوى من أي تمرين ذهني.',
+  mech:'بيرفع عامل نمو عصبي (BDNF) بيدعم تكوين وصلات جديدة، وبيزوّد التروية الدموية للمخ.',
+  study:'٦ شهور مشي هوائي منتظم زوّدت حجم الحُصين — منطقة الذاكرة — بينما مجموعة المقارنة استمرت في الانكماش الطبيعي.',
+  ref:'Erickson et al. 2011 — PNAS'},
+deep:{
+  does:'الحاجة الوحيدة اللي بتنتج شغل صعب. وأي مقاطعة بتكلّف أكتر بكتير من وقتها.',
+  mech:'المخ مش بيوازي، بيبدّل، وكل تبديل ليه تكلفة. وبتفضل بقايا انتباه معلّقة على المهمة السابقة فبتشتغل بجزء من طاقتك.',
+  study:'تجربة على مئات المشاركين لقت إن مجرد وجود التليفون على الترابيزة — مقلوب ومسكوت — قلّل الأداء في الذاكرة العاملة. الحل المثبت الوحيد: أوضة تانية.',
+  ref:'Ward et al. 2017 — Journal of the ACR · Leroy — بقايا الانتباه'},
+med:{
+  does:'بيدرّبك تلاحظ فكرتك من برّه بدل ما تكون جوّاها. ودي اللي بتكسر الاجترار — إنك تفضل تلف حوالين نفس السؤال.',
+  mech:'الرجوع المتكرّر من الشرود للنَّفَس هو التمرين نفسه، مش الوصول لصفاء. كل رجعة بمثابة تكرار.',
+  study:'مراجعة منهجية لأكتر من ٤٧ تجربة عشوائية لقت أثرًا متوسطًا على القلق والاكتئاب والألم. متوسط — يعني حقيقي ومش خارق.',
+  ref:'Goyal et al. 2014 — JAMA Internal Medicine'},
+plan:{
+  does:'بيفصل اللي في إيدك عن اللي مش في إيدك، فبتحط طاقتك على اللي بيتحرّك.',
+  mech:'القلق بيشتغل على تهديدات مفيش فيها فعل ممكن. الكتابة بتحوّل الغامض لمحدّد، والمحدّد بيصغّر. وتسمية الحالة بتقلل شدتها — ده مقاس.',
+  study:'«هحاول أتمرّن أكتر» أثرها شبه صفر. «لو بقت الساعة ٧، هلبس وأنزل أمشي» أثرها مقاس وقوي — لأنك بتنقل القرار من لحظة الضعف لوقت الصفاء.',
+  ref:'Gollwitzer — نوايا التنفيذ · تحليلات بعدية'},
+review:{
+  does:'بيقفل حلقة التعلّم. إنت مش بتتعلّم من التجربة — بتتعلّم من مراجعتها.',
+  mech:'الكتابة بتحوّل اليوم من كتلة مبهمة لسرد ليه بداية ونهاية، والمخ بيرتاح للمقفول أكتر من المفتوح.',
+  study:'الكتابة عن تجربة مشحونة بتقلل أثرها بمرور الوقت. الشرط: تكتب الفعل مش الشخص — «أجّلت الشغل» مش «أنا فاشل».',
+  ref:'Pennebaker — الكتابة التعبيرية'},
+pause:{
+  does:'بيرجّع انتباهك. الراحة المجدولة أنفع من الراحة عند الإحساس بالتعب.',
+  mech:'الانتباه بينضب، والإحساس بالتعب بييجي متأخر عن الانخفاض الفعلي في الأداء. والمخ بيكمّل شغل في الخلفية وقت الراحة.',
+  study:'الحلول اللي بتيجي فجأة في المشي أو تحت الدش بتحصل عشان بطّلت تضغط. السكرول مش راحة — هو تغيير نوع المدخلات بس.',
+  ref:'أدبيات استعادة الانتباه · Kaplan — الاستعادة بالطبيعة'},
+sleep:{
+  does:'التثبيت الفعلي لكل اللي اتعلمته بيحصل هنا. النوم جزء من التعلّم مش راحة بعده.',
+  mech:'أثناء النوم العميق بيتم نقل الذكريات من التخزين المؤقت للتخزين طويل المدى، وبيحصل تنضيف أيضي للمخ.',
+  study:'المذاكرة من غير نوم كافي بعدها = خسارة معظم اللي ذاكرته. وقلة النوم بتضرب الانتباه والحكم — والأخطر إنك بتفقد القدرة على تقدير إنك تعبان.',
+  ref:'Diekelmann & Born — Nature Reviews Neuroscience'}
+};
+
+/* ═══ البنود اللي بتتحط في اليوم ═══ */
+const BLOCKS = [
+{id:'light', name:'نور بره',        min:10, win:'wake',   how:'١٠ دقايق في نور النهار، من غير نضارة.'},
+{id:'breath',name:'تنفس بطيء',      min:5,  win:'wake',   how:'شهيق ٤، زفير ٦. خمس دقايق.', timer:300,
+ cue:'شهيق من المناخير ٤ ثواني… زفير من البُق ٦ ثواني.'},
+{id:'plan',  name:'اللي في إيدك',   min:5,  win:'wake',   how:'تلات حاجات بالكتير، وكلها في إيدك.'},
+{id:'deep',  name:'شغل عميق',       min:90, win:'am',     how:'حاجة واحدة، التليفون في أوضة تانية.', repeat:2},
+{id:'pause', name:'وقفة بره',       min:10, win:'gap',    how:'من غير شاشة. المشي أحسن من القعاد.', timer:600,
+ cue:'قوم من مكانك. لو تقدر تطلع بره، اطلع.'},
+{id:'move',  name:'مجهود هوائي',    min:30, win:'pm',     how:'لدرجة إن نَفَسك يتقل بس تقدر تتكلم.'},
+{id:'drills',name:'تمارين مِحَكّ',   min:20, win:'pm',     how:'ستة تمارين. كلها بتتسجّل.', isDrill:true},
+{id:'med',   name:'تأمل',           min:10, win:'pm',     how:'لاحظ نَفَسك، ولما تشرد ارجع.', timer:600,
+ cue:'حط انتباهك على إحساس النَّفَس. هتشرد — ارجع من غير لوم.'},
+{id:'review',name:'مراجعة مكتوبة',  min:5,  win:'night',  how:'مشي كويس / غلط / بكرة.'},
+{id:'sleep', name:'شاشات بعيد',     min:0,  win:'night',  how:'التليفون بره الأوضة قبل النوم بساعة.'}
+];
+
+const DRILLS=[
+{id:'span',dom:'الذاكرة العاملة',name:'مدى الأرقام',unit:'رقم',
+ blurb:'أطول سلسلة ترجّعها بالترتيب. المتوسط ٧ — والترميز بيعدّيه.'},
+{id:'palace',dom:'الذاكرة طويلة المدى',name:'قصر الذاكرة',unit:'كلمة',
+ blurb:'تحفظ قايمة بربطها بأماكن. الطريقة عمرها ٢٥٠٠ سنة.'},
+{id:'calib',dom:'الحكم والقرار',name:'المعايرة',unit:'نقطة',
+ blurb:'مش هل إجابتك صح — هل ثقتك مضبوطة.'},
+{id:'nback',dom:'الانتباه',name:'الرجوع خطوة',unit:'٪',
+ blurb:'تمسك تكرار الموقع من خطوتين. مقياس حسّاس ليومك.'},
+{id:'stroop',dom:'الكبح',name:'ستروب',unit:'٪',
+ blurb:'قول لون الحروف مش الكلمة. أساس ضبط النفس.'},
+{id:'sense',dom:'الإدراك الحسي',name:'التمييز',unit:'مستوى',
+ blurb:'فروق لونية بتضيق ٢٢٪ كل مستوى.'}
+];
+
+const CALQ=[
+ {q:'النيل أطول من الأمازون',a:true,n:'الخلاف قايم بين القياسين، والمرجع الأشهر بيدّي النيل الأطول بفارق بسيط'},
+ {q:'الضوء بياخد أقل من ثانية من القمر للأرض',a:false,n:'حوالي ١.٣ ثانية'},
+ {q:'سكان مصر أكتر من سكان ألمانيا',a:true,n:'مصر تجاوزت ١٠٠ مليون، وألمانيا حوالي ٨٤'},
+ {q:'الزئبق سائل في درجة حرارة الغرفة',a:true,n:'المعدن الوحيد السائل في الظروف العادية'},
+ {q:'سور الصين يُرى بالعين المجردة من الفضاء',a:false,n:'خرافة — نفاها رواد فضاء'},
+ {q:'الماس أصلب مادة طبيعية معروفة',a:true,n:'الأصلب طبيعيًا؛ فيه مواد صناعية أصلب'},
+ {q:'الأخطبوط عنده تلات قلوب',a:true,n:'قلبان للخياشيم وواحد للجسم'},
+ {q:'أستراليا أكبر من جرينلاند',a:true,n:'أكبر بحوالي ٣.٥ مرة — خرايط مركاتور بتضلّل'},
+ {q:'البرق مابيضربش المكان الواحد مرتين',a:false,n:'بيضرب المباني العالية عشرات المرات سنويًا'},
+ {q:'العسل مابيفسدش لو اتخزّن كويس',a:true,n:'اتلقى عسل صالح في مقابر عمرها آلاف السنين'},
+ {q:'الشمس صفراء اللون',a:false,n:'طيفها أبيض؛ الغلاف الجوي بيخليها تبان صفرا'},
+ {q:'الصين ليها أكتر من منطقة زمنية رسمية',a:false,n:'منطقة واحدة رغم اتساعها'},
+ {q:'الموز نبات عشبي مش شجرة',a:true,n:'الساق كاذبة من أغماد أوراق'},
+ {q:'جاذبية القمر حوالي نص جاذبية الأرض',a:false,n:'حوالي السدس'},
+ {q:'الإنسان عنده حواس أكتر من خمسة',a:true,n:'التوازن والحسّ العميق والحرارة والألم — حواس منفصلة'},
+ {q:'اللسان فيه مناطق مخصصة لكل طعم',a:false,n:'خريطة اللسان خرافة؛ كل المناطق بتحس كل الطعوم'},
+ {q:'تركيا أكبر من فرنسا في المساحة',a:true,n:'تركيا ~٧٨٠ ألف كم²، فرنسا ~٥٥٠ ألف'},
+ {q:'الدم أزرق في العروق قبل الأكسجين',a:false,n:'أحمر داكن دايمًا؛ الأزرق وهم بصري'},
+ {q:'الفيلة تقدر تنطّ',a:false,n:'الفيل الوحيد بين الثدييات الكبيرة اللي مايقدرش'},
+ {q:'أول كمبيوتر إلكتروني اتبنى قبل ١٩٥٠',a:true,n:'ENIAC اشتغل ١٩٤٥'},
+ {q:'المريخ أقرب كوكب للأرض في المتوسط',a:false,n:'عطارد الأقرب في المتوسط على مدار الزمن'},
+ {q:'الجمل بيخزّن مياه في سنامه',a:false,n:'السنام دهون؛ المياه في الدم والأنسجة'},
+ {q:'الأرض أقرب للشمس في الصيف الشمالي',a:false,n:'العكس — الفصول سببها ميل المحور مش المسافة'},
+ {q:'قلب الحوت الأزرق أكبر من عربية صغيرة',a:false,n:'قريب من حجمها، مش أكبر'}
+];
+const PWORDS=['مفتاح','برتقالة','مركب','ساعة','قطة','مرآة','جبل','خطاب','شمعة','حصان','مطر','كرسي','جسر','عسل','سيف','نافذة','بطيخة','قمر','حبل','طبلة','مسمار','ريشة','بئر','فانوس','صخرة','عنكبوت','مقص','رغيف','بوصلة','خوذة'];
+
+const LIMITS=[
+{t:'الذكاء العام مابيترفعش بالتمارين',
+ p:'أكبر دراسة على ألعاب تدريب المخ (١١ ألف مشارك، منشورة في Nature) لقت تحسّنًا في التمارين المتدرَّب عليها بس، من غير انتقال لقدرات عامة. ومراجعة موسّعة ٢٠١٦ خلصت لنفس النتيجة.',
+ yes:'اللي بيترفع فعلًا: مهارات محددة، ومعرفة منظّمة، واستراتيجيات ترميز. ودي بتدّي فروق أكبر بكتير من أي مكسب مزعوم في الذكاء العام.',
+ ref:'Owen et al. 2010 — Nature · Simons et al. 2016'},
+{t:'الرجوع خطوة موجود بتحفّظ',
+ p:'دراسة ٢٠٠٨ ادّعت إنه بيرفع الذكاء السائل واتبنى عليها مجال تجاري كامل. التحليلات البعدية اللاحقة لقت الانتقال ضعيف جدًا أو معدوم.',
+ yes:'موجود كتدريب انتباه حقيقي، وكمقياس حسّاس للفرق بين يوم صافي ويوم مشتّت. مش كرافع ذكاء.',
+ ref:'Melby-Lervåg & Hulme 2013'},
+{t:'«الذكاءات المتعددة» مش مدعومة تجريبيًا',
+ p:'فكرة إن عندك ٨ ذكاءات منفصلة شائعة في التعليم ومفيش عليها سند من علم القياس النفسي. القدرات المعرفية بتترابط مع بعضها بقوة.',
+ yes:'الفروق الحقيقية بين الناس في المهارات والمعرفة المتراكمة — وكلها قابلة للبناء.',ref:'—'},
+{t:'أنماط التعلّم خرافة مكذّبة',
+ p:'إنك «بصري» أو «سمعي» فتتعلّم أحسن بالنمط ده — اتختبرت مرات كتير وفشلت.',
+ yes:'اللي بيشتغل للكل: الاسترجاع، والتوزيع، والشرح لحد تاني.',
+ ref:'Pashler et al. 2008'},
+{t:'المكسب بطيء والانتقال ضيّق',
+ p:'التحسّن بيبان في نفس المهارة أو القريب منها جدًا. أي حاجة بتوعدك بقفزة عامة في أسابيع — دي علامة إنها بتبيعلك.',
+ yes:'الاستمرار على تمرين واحد شهور بيدّي فرق حقيقي في مجاله. وده الفرق كله.',ref:'—'}
+];
+
+</script>
+<script>
+/* ═══ الجدولة: بتلزق البنود في الفراغات بين مواعيدك ═══ */
+
+const M = t => { const [h,m] = t.split(':').map(Number); return h*60 + (m||0); };
+const T = m => `${String(Math.floor(m/60)%24).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+const T12 = m => {
+  const h = Math.floor(m/60)%24, mm = m%60;
+  const ap = h<12 ? 'ص' : 'م', h12 = h%12 || 12;
+  return `${ar(h12)}:${ar(String(mm).padStart(2,'0'))} ${ap}`;
+};
+
+const DAYS = ['الأحد','الاتنين','التلات','الأربع','الخميس','الجمعة','السبت'];
+
+function settings(){
+  return S.g('cfg', { wake:'06:30', sleepAt:'23:30', skip:[] });
+}
+
+/* الفراغات في اليوم بعد ما نشيل مواعيدك الثابتة */
+function freeGaps(dayIdx){
+  const c = settings();
+  const start = M(c.wake), end = M(c.sleepAt);
+  const evs = S.g('events', [])
+    .filter(e => !e.days || !e.days.length || e.days.includes(dayIdx))
+    .map(e => ({s:M(e.start), e:M(e.end), t:e.title}))
+    .filter(e => e.e > start && e.s < end)
+    .sort((a,b) => a.s - b.s);
+
+  const gaps = [];
+  let cur = start;
+  for(const e of evs){
+    if(e.s > cur) gaps.push({s:cur, e:Math.min(e.s, end)});
+    cur = Math.max(cur, e.e);
+  }
+  if(cur < end) gaps.push({s:cur, e:end});
+  return { gaps: gaps.filter(g => g.e - g.s >= 5), events: evs, start, end };
+}
+
+/* بنحط كل بند في أقرب فراغ مناسب لنافذته */
+function buildPlan(dayIdx){
+  const c = settings();
+  const { gaps, events, start, end } = freeGaps(dayIdx);
+  const noon = 13*60;
+  const free = gaps.map(g => ({...g, cur:g.s}));
+  const out = [];
+
+  const windowRange = win => {
+    if(win === 'wake')  return [start, start + 150];
+    if(win === 'am')    return [start + 30, noon + 120];
+    if(win === 'pm')    return [noon, end - 120];
+    if(win === 'night') return [end - 110, end];
+    return [start, end];
+  };
+
+  const place = (b, tag) => {
+    const [lo, hi] = windowRange(b.win);
+    for(const g of free){
+      const from = Math.max(g.cur, lo);
+      if(from + b.min <= Math.min(g.e, hi + b.min)){
+        out.push({ id:b.id, key:b.id + (tag||''), name:b.name + (tag||''),
+                   at:from, min:b.min, how:b.how, timer:b.timer, cue:b.cue,
+                   isDrill:b.isDrill });
+        g.cur = from + b.min + 5;
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const unplaced = [];
+  for(const b of BLOCKS){
+    if(c.skip.includes(b.id)) continue;
+    if(b.id === 'sleep'){
+      out.push({ id:'sleep', key:'sleep', name:b.name, at:end - 60, min:0, how:b.how });
+      continue;
+    }
+    const n = b.repeat || 1;
+    for(let i=0;i<n;i++){
+      const tag = n>1 ? ' '+ar(i+1) : '';
+      if(!place(b, tag)) unplaced.push(b.name + tag);
+    }
+  }
+
+  const evItems = events.map(e => ({ id:'__ev', key:'ev'+e.s, name:e.t, at:e.s,
+                                     min:e.e - e.s, fixed:true }));
+  const items = [...out, ...evItems].sort((a,b) => a.at - b.at);
+  items.unplaced = unplaced;
+  return items;
+}
+
+/* ═══ ملف التقويم: تنبيهات نظام حقيقية ═══ */
+function pad(n){ return String(n).padStart(2,'0'); }
+function icsDate(d, mins){
+  const x = new Date(d);
+  x.setHours(Math.floor(mins/60), mins%60, 0, 0);
+  return `${x.getFullYear()}${pad(x.getMonth()+1)}${pad(x.getDate())}T${pad(x.getHours())}${pad(x.getMinutes())}00`;
+}
+function esc(s){ return String(s).replace(/([,;\\])/g,'\\$1').replace(/\n/g,'\\n'); }
+/* DTSTAMP لازم UTC. أما DTSTART فسايبينه بتوقيت عائم عن قصد —
+   عشان المنبّه يرنّ ٦:٣٠ محلي مهما اتغيّرت المنطقة الزمنية. */
+function stampUTC(){
+  const d = new Date();
+  return `${d.getUTCFullYear()}${pad(d.getUTCMonth()+1)}${pad(d.getUTCDate())}`
+       + `T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
+}
+
+function buildICS(){
+  const now = new Date();
+  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mihakk//AR//','CALSCALE:GREGORIAN',
+                 'METHOD:PUBLISH','X-WR-CALNAME:مِحَكّ','X-WR-TIMEZONE:'+
+                 (Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC')];
+
+  /* بند لكل يوم في الأسبوع، بيتكرر أسبوعيًا */
+  const WD = ['SU','MO','TU','WE','TH','FR','SA'];
+  for(let d=0; d<7; d++){
+    const plan = buildPlan(d).filter(x => !x.fixed && x.min > 0);
+    /* أول تاريخ جاي لليوم ده */
+    const base = new Date(now);
+    base.setDate(base.getDate() + ((d - now.getDay() + 7) % 7));
+
+    for(const item of plan){
+      const why = WHY[item.id];
+      const uid = `mh-${d}-${item.key}-${Math.random().toString(36).slice(2,8)}@mihakk`;
+      lines.push('BEGIN:VEVENT',
+        'UID:'+uid,
+        'DTSTAMP:'+stampUTC(),
+        'DTSTART:'+icsDate(base, item.at),
+        'DTEND:'+icsDate(base, item.at + Math.max(item.min,5)),
+        'RRULE:FREQ=WEEKLY;BYDAY='+WD[d],
+        'SUMMARY:'+esc(item.name),
+        'DESCRIPTION:'+esc((item.how||'') + (why ? '\n\n' + why.does : '')),
+        'BEGIN:VALARM','ACTION:DISPLAY',
+        'DESCRIPTION:'+esc(item.name),
+        'TRIGGER:PT0M','END:VALARM','END:VEVENT');
+    }
+  }
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+
+function downloadICS(){
+  const blob = new Blob([buildICS()], {type:'text/calendar;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'mihakk.ics';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+}
+
+/* ═══ تنبيهات داخل التطبيق وهو مفتوح ═══ */
+/* على بعض إصدارات iOS المفتاح موجود والقيمة undefined — فحص أمتن */
+function notifState(){
+  try{
+    if(typeof Notification === 'undefined' || !Notification) return 'unsupported';
+    return Notification.permission || 'default';
+  }catch{ return 'unsupported'; }
+}
+let notifTimers = [];
+function armNotifications(){
+  notifTimers.forEach(clearTimeout); notifTimers = [];
+  if(notifState() !== 'granted') return;
+  const now = new Date(), nowM = now.getHours()*60 + now.getMinutes();
+  buildPlan(now.getDay()).filter(x => !x.fixed && x.at > nowM).forEach(item => {
+    const ms = (item.at - nowM) * 60000;
+    if(ms > 0 && ms < 14*3600*1000){
+      notifTimers.push(setTimeout(()=>{
+        try{ new Notification(item.name, { body: item.how || '', tag: item.key }); }catch{}
+      }, ms));
+    }
+  });
+}
+async function askNotify(){
+  const st = notifState();
+  if(st === 'unsupported') return st;
+  if(st === 'granted'){ armNotifications(); return 'granted'; }
+  let r; try{ r = await Notification.requestPermission(); }catch{ return 'unsupported'; }
+  if(r === 'granted') armNotifications();
+  return r;
+}
+
+</script>
+<script>
+/* ═══════════ حالة ═══════════ */
+let tab='today', openWhy=null;
+const TABS=[['today','النهاردة'],['plan','الخطة'],['drills','التمارين'],['gauge','القياس'],['limits','الحدود']];
+
+function log(d,v){ const h=S.g('h:'+d,[]); h.push({d:today(),v}); S.s('h:'+d,h.slice(-300)); mark(d); }
+function mark(k){ const x=S.g('done:'+today(),{}); x[k]=true; S.s('done:'+today(),x); }
+function unmark(k){ const x=S.g('done:'+today(),{}); delete x[k]; S.s('done:'+today(),x); }
+const isDone=k=>!!S.g('done:'+today(),{})[k];
+const hist=d=>S.g('h:'+d,[]);
+const best=d=>{const h=hist(d);return h.length?Math.max(...h.map(x=>x.v)):null};
+const lastV=d=>{const h=hist(d);return h.length?h[h.length-1].v:null};
+function streak(){let n=0;for(let i=0;;i++){const d=new Date();d.setDate(d.getDate()-i);
+  if(Object.keys(S.g('done:'+d.toISOString().slice(0,10),{})).length)n++;else break}return n}
+
+function nav(){
+  document.getElementById('nav').innerHTML=TABS.map(([k,l])=>
+    `<button data-t="${k}" aria-current="${k===tab}">${l}</button>`).join('');
+  document.querySelectorAll('#nav button').forEach(b=>
+    b.onclick=()=>{tab=b.dataset.t;openWhy=null;nav();render();window.scrollTo(0,0)});
+}
+
+/* ═══════════ لوحة «ليه» ═══════════ */
+function whyPanel(id){
+  const w=WHY[id]; if(!w) return '';
+  return `<div class="why">
+    <div class="wrow"><span class="wl">بتعمل إيه</span><p>${w.does}</p></div>
+    <div class="wrow"><span class="wl">الآلية</span><p>${w.mech}</p></div>
+    <div class="wrow"><span class="wl">البحث</span><p>${w.study}</p></div>
+    <div class="wref">${w.ref}</div>
+  </div>`;
+}
+
+/* ═══════════ النهاردة ═══════════ */
+function viewToday(){
+  const now=new Date(), nowM=now.getHours()*60+now.getMinutes();
+  const plan=buildPlan(now.getDay());
+  const live=plan.filter(x=>!x.fixed);
+  const doneN=live.filter(x=>isDone(x.key)).length;
+  const next=live.find(x=>!isDone(x.key)&&x.at+x.min>=nowM)||live.find(x=>!isDone(x.key));
+
+  const rows=plan.map(x=>{
+    if(x.fixed) return `<div class="row fixed"><span class="tm">${T12(x.at)}</span>
+      <div class="rb"><div class="rn">${x.name}</div><div class="rh">موعد ثابت · ${ar(Math.round(x.min/60*10)/10)} ساعة</div></div></div>`;
+    const done=isDone(x.key), isNext=next&&next.key===x.key, past=x.at+x.min<nowM&&!done;
+    const w=WHY[x.id];
+    return `<div class="row ${done?'done':''} ${isNext?'next':''} ${past?'past':''}">
+      <span class="tm">${T12(x.at)}</span>
+      <div class="rb">
+        <div class="rn">${x.name}${x.min?`<span class="mins">${ar(x.min)}د</span>`:''}</div>
+        <div class="rh">${x.how||''}</div>
+        ${w?`<button class="whyb" data-why="${x.id}">${openWhy===x.id?'إخفاء':'ليه؟'}</button>`:''}
+        ${openWhy===x.id?whyPanel(x.id):''}
+      </div>
+      <div class="ra">
+        ${x.isDrill?`<button class="act" data-tab="drills">افتح</button>`
+         :x.timer?`<button class="act" data-timer="${x.id}|${x.key}">عدّاد</button>`:''}
+        <button class="tick ${done?'on':''}" data-k="${x.key}" aria-label="تم">
+          <svg viewBox="0 0 12 12"><path d="M2 6.4l2.6 2.6L10 3.2"/></svg></button>
+      </div>
+    </div>`}).join('');
+
+  return `<div class="hd">
+      <div class="eyebrow">${DAYS[now.getDay()]} · ${ar(now.getDate())}</div>
+      <h2 class="title">${next?next.name:'خلصت النهاردة'}</h2>
+      <p class="lede">${next?`${T12(next.at)} · ${next.how||''}`:'كل بنود اليوم اتعملت.'}</p>
+      <div class="gauges">
+        <div class="gauge"><b>${ar(doneN)}<i>/${ar(live.length)}</i></b><span>خلصت</span></div>
+        <div class="gauge"><b>${ar(streak())}</b><span>يوم ورا التاني</span></div>
+        <div class="gauge"><b>${best('span')?ar(best('span')):'—'}</b><span>أطول مدى أرقام</span></div>
+      </div>
+    </div>
+    ${plan.unplaced&&plan.unplaced.length?`<div class="notice">
+      مالقاش مكان النهاردة: ${plan.unplaced.join(' · ')}.
+      <button data-tab="plan">عدّل الخطة</button></div>`:''}
+    <div class="rows">${rows}</div>`;
+}
+
+/* ═══════════ الخطة ═══════════ */
+function viewPlan(){
+  const c=settings(), evs=S.g('events',[]);
+  const perm=notifState();
+  return `<div class="hd">
+    <div class="eyebrow">الخطة</div>
+    <h2 class="title">اليوم بيتظبط<br>حوالين مواعيدك</h2>
+    <p class="lede">حط مواعيدك الثابتة، والتطبيق بيلزق البنود في الفراغات — كل بند في وقته المناسب من اليوم.</p>
+  </div>
+
+  <h3 class="sec">حدودك</h3>
+  <div class="fields">
+    <label>بتصحى الساعة<input type="time" id="wake" value="${c.wake}"></label>
+    <label>بتنام الساعة<input type="time" id="sleepAt" value="${c.sleepAt}"></label>
+  </div>
+
+  <h3 class="sec">مواعيدك الثابتة</h3>
+  ${evs.length?evs.map((e,i)=>`<div class="ev">
+      <div><b>${e.title}</b><span>${T12(M(e.start))} – ${T12(M(e.end))} · ${
+        (!e.days||e.days.length===7||!e.days.length)?'كل يوم':e.days.map(d=>DAYS[d]).join('، ')}</span></div>
+      <button class="del" data-del="${i}">شيل</button>
+    </div>`).join(''):'<p class="none">لسه مفيش مواعيد. زوّد شغلك وارتباطاتك الثابتة.</p>'}
+
+  <div class="addbox">
+    <input id="ev-t" placeholder="اسم الموعد — شغل، مونتاج، جيم">
+    <div class="two"><input type="time" id="ev-s" value="10:00"><input type="time" id="ev-e" value="18:00"></div>
+    <div class="days">${DAYS.map((d,i)=>`<button data-day="${i}" class="dbtn">${d}</button>`).join('')}</div>
+    <button class="pri wide" id="ev-add">زوّد الموعد</button>
+  </div>
+
+  <h3 class="sec">بنود تشيلها</h3>
+  <div class="chips">${BLOCKS.map(b=>
+    `<button class="chip ${c.skip.includes(b.id)?'off':''}" data-skip="${b.id}">${b.name}</button>`).join('')}</div>
+  <p class="hint">اللي مطفي مش هيتحط في اليوم.</p>
+
+  <h3 class="sec">التنبيهات</h3>
+  <div class="notify">
+    <div class="nb">
+      <b>تنبيهات التقويم</b>
+      <p>بيولّد ملف فيه كل بنود أسبوعك، وجوّه كل واحد منبّه. تفتحه مرة واحدة على الموبايل،
+         والتقويم نفسه هو اللي بينبّهك — تنبيهات نظام حقيقية، شغّالة حتى والتطبيق مقفول، ومن غير أي سيرفر.</p>
+      <button class="pri" id="ics">نزّل ملف التقويم</button>
+    </div>
+    <div class="nb">
+      <b>تنبيهات المتصفّح</b>
+      <p>بتشتغل والتطبيق مفتوح أو في الخلفية بس. مفيدة على الكمبيوتر وإنت شغّال.
+         ${perm==='granted'?'<span class="ok">مفعّلة</span>':perm==='denied'?'<span class="no">مرفوضة من المتصفّح</span>':''}</p>
+      ${perm==='granted'?'':`<button id="notif">${perm==='unsupported'?'مش متاحة هنا':'فعّل'}</button>`}
+    </div>
+  </div>
+
+  <h3 class="sec">معاينة الأسبوع</h3>
+  <div class="week">${DAYS.map((d,i)=>{
+    const p=buildPlan(i).filter(x=>!x.fixed&&x.min>0);
+    return `<div class="wd"><span>${d}</span><b>${ar(p.length)}</b></div>`}).join('')}</div>`;
+}
+
+/* ═══════════ التمارين ═══════════ */
+function viewDrills(){
+  return `<div class="hd"><div class="eyebrow">التمارين</div>
+    <h2 class="title">ستة مقاييس</h2>
+    <p class="lede">كل واحد بيدرّب قدرة محددة وبيقيسها. دوس «ليه؟» تشوف البحث ورا كل واحد.</p></div>
+  <div class="cards">${DRILLS.map(d=>{
+    const b=best(d.id), l=lastV(d.id);
+    return `<div class="card">
+      <div class="dom">${d.dom}</div>
+      <h3>${d.name}</h3>
+      <p>${d.blurb}</p>
+      ${openWhy===d.id?whyPanel(d.id):''}
+      <div class="cmeta">
+        <span class="bg">${b!==null?ar(b):'—'}</span>
+        <span class="bl">${b!==null?'أحسن '+d.unit:'لسه'}</span>
+        ${l!==null?`<span class="bl">آخر مرة ${ar(l)}</span>`:''}
+      </div>
+      <div class="crow">
+        <button class="pri" data-go="${d.id}">ابدأ</button>
+        <button data-why="${d.id}">${openWhy===d.id?'إخفاء':'ليه؟'}</button>
+      </div>
+    </div>`}).join('')}</div>`;
+}
+
+/* ═══════════ القياس ═══════════ */
+function viewGauge(){
+  const has=DRILLS.filter(d=>hist(d.id).length>=2);
+  const head=`<div class="hd"><div class="eyebrow">القياس</div><h2 class="title">أرقامك</h2>
+    <p class="lede">مفيش ادعاء هنا. دي بياناتك إنت عبر الوقت.</p></div>`;
+  if(!has.length) return head+`<div class="empty">
+    شغّل أي تمرين مرتين والمنحنى هيبدأ يتبني.<br><br>
+    وأول أسبوع أرقامه بتتقلقل — التعلّم بيبان بعد ٣ أو ٤ أسابيع.</div>`;
+  return head+has.map(d=>{
+    const vs=hist(d.id).map(x=>x.v);
+    const third=Math.max(1,Math.floor(vs.length/3));
+    const avg=a=>a.reduce((s,v)=>s+v,0)/a.length;
+    const diff=avg(vs.slice(-third))-avg(vs.slice(0,third));
+    const mx=Math.max(...vs),mn=Math.min(...vs),r=(mx-mn)||1,W=560,H=72;
+    const pts=vs.map((v,i)=>`${(i/Math.max(1,vs.length-1))*W},${H-4-((v-mn)/r)*(H-14)}`).join(' ');
+    return `<div class="chart"><div class="ch">
+        <h3>${d.name}</h3>
+        <span class="delta">${diff>0.05?'+'+ar(diff.toFixed(1))+' من البداية':diff<-0.05?ar(diff.toFixed(1)):'ثابت'}</span>
+        <span class="now">${ar(vs[vs.length-1])}<i>${d.unit}</i></span></div>
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="width:100%;height:${H}px">
+        <polyline points="${pts}" fill="none" stroke="var(--brass)" stroke-width="1.6"
+          stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+      <div class="cn">${ar(vs.length)} جولة · أحسن ${ar(mx)}</div></div>`}).join('');
+}
+
+/* ═══════════ الحدود ═══════════ */
+function viewLimits(){
+  return `<div class="hd"><div class="eyebrow">الحدود</div>
+    <h2 class="title">اللي التطبيق ده<br>مش هيعمله</h2>
+    <p class="lede">أي حاجة في المجال ده مش بتقولك حدودها، بتبيعلك.</p></div>
+    ${LIMITS.map(l=>`<div class="limit"><h3>${l.t}</h3><p>${l.p}</p>
+      <p class="yes">${l.yes}</p>${l.ref!=='—'?`<div class="wref">${l.ref}</div>`:''}</div>`).join('')}
+    <div class="closing">الحاجة الوحيدة اللي أدلتها قوية ومكسبها كبير:
+      <b>إنك تشتغل على مهارة واحدة صعبة، بارتجاع، لمدة طويلة.</b> ده مش مثير، وهو اللي بيفرّق.</div>`;
+}
+
+/* ═══════════ الرسم والربط ═══════════ */
+function render(){
+  document.getElementById('main').innerHTML=
+    tab==='today'?viewToday():tab==='plan'?viewPlan():tab==='drills'?viewDrills():
+    tab==='gauge'?viewGauge():viewLimits();
+  wire();
+}
+function wire(){
+  const R=()=>render();
+  document.querySelectorAll('[data-why]').forEach(b=>b.onclick=()=>{
+    openWhy=openWhy===b.dataset.why?null:b.dataset.why; R(); });
+  document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{
+    tab=b.dataset.tab; nav(); R(); window.scrollTo(0,0); });
+  document.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{
+    isDone(b.dataset.k)?unmark(b.dataset.k):mark(b.dataset.k); R(); });
+  document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>start(b.dataset.go));
+  document.querySelectorAll('[data-timer]').forEach(b=>b.onclick=()=>{
+    const [id,key]=b.dataset.timer.split('|'); runTimer(id,key); });
+
+  const cfg=settings();
+  ['wake','sleepAt'].forEach(k=>{ const el=document.getElementById(k);
+    if(el) el.onchange=()=>{ const c=settings(); c[k]=el.value; S.s('cfg',c); armNotifications(); R(); }; });
+
+  let picked=[];
+  document.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{
+    const d=+b.dataset.day;
+    picked.includes(d)?picked=picked.filter(x=>x!==d):picked.push(d);
+    b.classList.toggle('on'); });
+  const add=document.getElementById('ev-add');
+  if(add) add.onclick=()=>{
+    const t=document.getElementById('ev-t').value.trim();
+    const s=document.getElementById('ev-s').value, e=document.getElementById('ev-e').value;
+    if(!t) return document.getElementById('ev-t').focus();
+    if(M(e)<=M(s)) return alert('وقت النهاية لازم يكون بعد البداية.');
+    const evs=S.g('events',[]); evs.push({title:t,start:s,end:e,days:picked.length?picked:[0,1,2,3,4,5,6]});
+    S.s('events',evs); armNotifications(); R(); };
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{
+    const evs=S.g('events',[]); evs.splice(+b.dataset.del,1); S.s('events',evs); armNotifications(); R(); });
+  document.querySelectorAll('[data-skip]').forEach(b=>b.onclick=()=>{
+    const c=settings(); const id=b.dataset.skip;
+    c.skip=c.skip.includes(id)?c.skip.filter(x=>x!==id):[...c.skip,id];
+    S.s('cfg',c); armNotifications(); R(); });
+  const ics=document.getElementById('ics'); if(ics) ics.onclick=downloadICS;
+  const nb=document.getElementById('notif'); if(nb) nb.onclick=async()=>{ await askNotify(); R(); };
+}
+
+/* ═══════════ المشهد ═══════════ */
+const stage=document.getElementById('stage'), sBody=document.getElementById('s-body');
+function open(n,l){document.getElementById('s-name').textContent=n;
+  document.getElementById('s-lvl').textContent=l||'';stage.classList.add('open');
+  document.body.style.overflow='hidden'}
+const setLvl=t=>document.getElementById('s-lvl').textContent=t;
+function close(){stage.classList.remove('open');sBody.innerHTML='';clearTimeout(window._t);
+  document.body.style.overflow='';render()}
+document.getElementById('s-close').onclick=close;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&stage.classList.contains('open'))close()});
+const acts=(...b)=>`<div class="acts">${b.join('')}</div>`;
+
+function runTimer(id,key){
+  const b=BLOCKS.find(x=>x.id===id); if(!b||!b.timer) return;
+  open(b.name,''); let left=b.timer;
+  const draw=()=>{
+    const m=Math.floor(left/60),s=left%60;
+    sBody.innerHTML=`<div class="cue">${b.cue||b.how}</div>
+      <div class="big">${ar(String(m).padStart(2,'0'))}:${ar(String(s).padStart(2,'0'))}</div>
+      ${acts('<button id="stop">إنهاء</button>')}`;
+    document.getElementById('stop').onclick=close;
+  };
+  draw();
+  const tickFn=()=>{ left--;
+    if(left<=0){ mark(key); sBody.innerHTML=`<div class="big">تمّ</div>
+      ${acts('<button class="pri" id="d">خلاص</button>')}`;
+      document.getElementById('d').onclick=close; return; }
+    draw(); window._t=setTimeout(tickFn,1000); };
+  window._t=setTimeout(tickFn,1000);
+}
+function start(id){ const d=DRILLS.find(x=>x.id===id); open(d.name,'');
+  ({span:runSpan,palace:runPalace,calib:runCalib,nback:runNback,stroop:runStroop,sense:runSense})[id](); }
+
+/* ── مدى الأرقام ── */
+function runSpan(){
+  let n=4,misses=0,peak=0;
+  const round=()=>{
+    const seq=Array.from({length:n},()=>rnd(10)); setLvl(ar(n)+' أرقام');
+    sBody.innerHTML=`<div class="cue">ركّز. الأرقام هتظهر واحد واحد.</div><div class="big" id="x"></div>`;
+    let i=0;
+    const show=()=>{const el=document.getElementById('x');if(!el)return;
+      if(i<seq.length){el.textContent=ar(seq[i]);i++;
+        window._t=setTimeout(()=>{el.textContent='';window._t=setTimeout(show,220)},780)}
+      else ask(seq)};
+    window._t=setTimeout(show,900);
+  };
+  const ask=seq=>{
+    sBody.innerHTML=`<div class="cue">اكتب الأرقام بالترتيب، من غير مسافات.</div>
+      <input class="entry" id="in" inputmode="numeric" autocomplete="off" placeholder="٤٧٢٩">
+      ${acts('<button class="pri" id="ok">تأكيد</button>')}`;
+    const inp=document.getElementById('in'); inp.focus();
+    const go=()=>{const v=inp.value.replace(/[٠-٩]/g,c=>AR.indexOf(c)).replace(/\D/g,'');
+      if(v===seq.join('')){peak=Math.max(peak,n);n++;misses=0;done(true,seq)}
+      else{misses++;done(false,seq)}};
+    document.getElementById('ok').onclick=go;
+    inp.onkeydown=e=>{if(e.key==='Enter')go()};
+  };
+  const done=(ok,seq)=>{
+    sBody.innerHTML=`<div class="big sm">${seq.map(ar).join(' ')}</div>
+      <div class="verdict ${ok?'ok':'no'}">${ok?'صح. بنكبّر السلسلة.':'غلط. دي كانت السلسلة.'}</div>
+      ${misses>=2?`<div class="cue" style="margin-top:1.4rem">وقفنا عند
+        <b style="color:var(--brass)">${ar(peak||1)}</b> رقم. ${peak>=9?
+        'فوق المتوسط. النظام الكبير بيعدّي الحاجز ده.':'المتوسط ٧ — والترميز هو اللي بيعدّيه.'}</div>`
+        +acts('<button class="pri" id="f">تسجيل</button>')
+        :acts('<button class="pri" id="n">كمّل</button>')}`;
+    if(misses>=2) document.getElementById('f').onclick=()=>{log('span',peak||1);mark('drills');close()};
+    else document.getElementById('n').onclick=round;
+  };
+  round();
+}
+/* ── قصر الذاكرة ── */
+function runPalace(){
+  const N=10, words=shuffle(PWORDS).slice(0,N);
+  sBody.innerHTML=`<div class="cue">هتشوف ${ar(N)} كلمات لمدة دقيقة.<br>
+    حطّ كل واحدة في محطة من مكان تعرفه — الباب، الأنترية، المطبخ — بصورة مبالغة ومتحركة.</div>
+    ${acts('<button class="pri" id="go">ابدأ</button>')}`;
+  document.getElementById('go').onclick=()=>{
+    let left=60;
+    const t=()=>{const el=document.getElementById('tt');if(!el)return;
+      el.textContent=ar(left); if(left--<=0)return recall(); window._t=setTimeout(t,1000)};
+    sBody.innerHTML=`<div class="cue">باقي <span id="tt">٦٠</span> ثانية</div>
+      <div class="big sm">${words.join(' · ')}</div>${acts('<button id="e">خلصت</button>')}`;
+    document.getElementById('e').onclick=()=>{clearTimeout(window._t);recall()};
+    t();
+  };
+  const recall=()=>{ clearTimeout(window._t); setLvl(ar(N)+' كلمات');
+    sBody.innerHTML=`<div class="cue">اكتب اللي فاكره — كلمة وادوس Enter. الترتيب مش مهم.</div>
+      <input class="entry" id="in" autocomplete="off" placeholder="اكتب كلمة">
+      <div class="got" id="got"></div>${acts('<button class="pri" id="d">خلاص</button>')}`;
+    const inp=document.getElementById('in'); inp.focus(); const got=[];
+    inp.onkeydown=e=>{ if(e.key!=='Enter')return; const v=inp.value.trim();
+      if(v&&!got.includes(v)){got.push(v);document.getElementById('got').textContent=got.join(' · ')}
+      inp.value=''; };
+    document.getElementById('d').onclick=()=>{
+      const hit=got.filter(w=>words.includes(w)), miss=words.filter(w=>!got.includes(w));
+      sBody.innerHTML=`<div class="big">${ar(hit.length)}<i>/${ar(N)}</i></div>
+        <div class="verdict ${hit.length>=7?'ok':''}">${hit.length>=9?'ممتاز. جرّب ١٥ المرة الجاية.':
+          hit.length>=6?'كويس. النقص بيبقى في المحطات المتشابهة — خلّيها مميزة.':
+          'الطبيعي من غير طريقة ٥ إلى ٧.'}</div>
+        ${miss.length?`<div class="cue" style="margin-top:1rem">فاتك: ${miss.join(' · ')}</div>`:''}
+        ${acts('<button class="pri" id="f">تسجيل</button>')}`;
+      document.getElementById('f').onclick=()=>{log('palace',hit.length);mark('drills');close()};
+    };
+  };
+}
+/* ── المعايرة ── */
+function runCalib(){
+  const qs=shuffle(CALQ).slice(0,10); let i=0; const recs=[];
+  const step=()=>{ if(i>=qs.length)return fin();
+    const q=qs[i]; setLvl(ar(i+1)+' / ١٠');
+    sBody.innerHTML=`<div class="cue">صح ولا غلط؟</div><div class="big sm">${q.q}</div>
+      <div class="opts"><button data-a="1">صح</button><button data-a="0">غلط</button></div>`;
+    sBody.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>conf(q,b.dataset.a==='1'));
+  };
+  const conf=(q,ans)=>{
+    sBody.innerHTML=`<div class="cue">إنت قلت <b>${ans?'صح':'غلط'}</b>. إد إيه واثق؟<br>
+      <span class="sm2">دي أهم خطوة — مش الإجابة، الثقة.</span></div>
+      <div class="conf">${[50,60,70,80,90,95,99].map(c=>`<button data-c="${c}">${ar(c)}٪</button>`).join('')}</div>`;
+    sBody.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{
+      const c=+b.dataset.c/100, ok=ans===q.a; recs.push({c,ok});
+      sBody.innerHTML=`<div class="verdict ${ok?'ok':'no'}">${ok?'صح':'غلط'}</div>
+        <div class="cue" style="margin-top:.9rem">${q.n}</div>
+        ${acts('<button class="pri" id="n">اللي بعده</button>')}`;
+      document.getElementById('n').onclick=()=>{i++;step()};
+    });
+  };
+  const fin=()=>{
+    const brier=recs.reduce((s,r)=>s+Math.pow((r.ok?1:0)-r.c,2),0)/recs.length;
+    const score=Math.max(0,Math.round((1-brier*4)*100));
+    const acc=recs.filter(r=>r.ok).length/recs.length;
+    const mc=recs.reduce((s,r)=>s+r.c,0)/recs.length, gap=mc-acc;
+    setLvl('');
+    sBody.innerHTML=`<div class="big">${ar(score)}</div>
+      <div class="cue" style="margin-top:.9rem">دقّتك <b>${ar(Math.round(acc*100))}٪</b> ·
+        متوسط ثقتك <b>${ar(Math.round(mc*100))}٪</b></div>
+      <div class="verdict ${Math.abs(gap)<0.08?'ok':'no'}">${
+        gap>0.12?'ثقتك أعلى من دقّتك — وده أشيع نمط في الناس. نزّل تقديراتك.':
+        gap<-0.12?'ثقتك أقل من دقّتك. إنت أدقّ مما تفتكر.':'معايرة كويسة. ثقتك بتطابق دقّتك.'}</div>
+      ${acts('<button class="pri" id="f">تسجيل</button>')}`;
+    document.getElementById('f').onclick=()=>{log('calib',score);mark('drills');close()};
+  };
+  step();
+}
+/* ── الرجوع خطوة ── */
+function runNback(){
+  const N=2,LEN=22, seq=Array.from({length:LEN},()=>rnd(9));
+  let i=0,hits=0,fa=0,tg=0,ans=false;
+  sBody.innerHTML=`<div class="cue">مربّع هيضيء كل خطوة. دوس «تكرار» لو الموقع ده
+    <b>نفس الموقع من خطوتين فاتوا</b>.</div>${acts('<button class="pri" id="go">ابدأ</button>')}`;
+  document.getElementById('go').onclick=()=>{
+    sBody.innerHTML=`<div class="cue" id="c">—</div>
+      <div class="grid3">${Array.from({length:9},(_,k)=>`<i data-k="${k}"></i>`).join('')}</div>
+      ${acts('<button class="pri" id="rep">تكرار</button>')}
+      <div class="progress"><i id="pg"></i></div>`;
+    document.getElementById('rep').onclick=()=>{
+      if(ans||i<=N)return; ans=true;
+      const t=seq[i-1]===seq[i-1-N];
+      if(t){hits++;document.getElementById('c').textContent='صح'}
+      else{fa++;document.getElementById('c').textContent='غلط'}};
+    const step=()=>{
+      if(i>=LEN)return fin();
+      document.querySelectorAll('.grid3 i').forEach(e=>e.classList.remove('lit'));
+      document.querySelector(`.grid3 i[data-k="${seq[i]}"]`).classList.add('lit');
+      if(i>=N&&seq[i]===seq[i-N])tg++;
+      i++; ans=false;
+      const c=document.getElementById('c'); if(c&&i>1)c.textContent='—';
+      document.getElementById('pg').style.width=(i/LEN*100)+'%';
+      setLvl(ar(i)+' / '+ar(LEN));
+      window._t=setTimeout(step,2100); };
+    step();
+  };
+  const fin=()=>{
+    const acc=tg?Math.round(hits/tg*100):0; setLvl('');
+    sBody.innerHTML=`<div class="big">${ar(acc)}٪</div>
+      <div class="cue" style="margin-top:.9rem">مسكت ${ar(hits)} من ${ar(tg)}، و${ar(fa)} إنذار كاذب.</div>
+      <div class="verdict">${acc>=75?'تركيز عالي النهاردة.':acc>=50?'متوسط. جرّبه في وقت صافي.':
+        'اليوم مشتّت — والرقم ده مفيد كقياس لحالتك.'}</div>
+      ${acts('<button class="pri" id="f">تسجيل</button>')}`;
+    document.getElementById('f').onclick=()=>{log('nback',acc);mark('drills');close()};
+  };
+}
+/* ── ستروب ── */
+function runStroop(){
+  const C=[['أحمر','#C0574A'],['أخضر','#6E9478'],['أزرق','#5B7EA8'],['أصفر','#C2A15C']];
+  const LEN=20; let i=0,ok=0;
+  const step=()=>{ if(i>=LEN)return fin();
+    setLvl(ar(i+1)+' / '+ar(LEN));
+    const w=rnd(4); let c=rnd(4); if(Math.random()<0.7&&c===w)c=(c+1+rnd(3))%4;
+    sBody.innerHTML=`<div class="cue">قول <b>لون الحروف</b>، مش الكلمة.</div>
+      <div class="big" style="color:${C[c][1]}">${C[w][0]}</div>
+      <div class="opts four">${C.map((x,k)=>`<button data-c="${k}">${x[0]}</button>`).join('')}</div>`;
+    sBody.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{
+      if(+b.dataset.c===c)ok++; i++; step(); });
+  };
+  const fin=()=>{ const p=Math.round(ok/LEN*100); setLvl('');
+    sBody.innerHTML=`<div class="big">${ar(p)}٪</div>
+      <div class="verdict ${p>=85?'ok':''}">${p>=90?'كبح قوي. التلقائي مش بيسبقك.':
+        p>=70?'متوسط. بيتحسّن بالتكرار على أسابيع.':'الكلمة بتغلب اللون — ده طبيعي في البداية.'}</div>
+      ${acts('<button class="pri" id="f">تسجيل</button>')}`;
+    document.getElementById('f').onclick=()=>{log('stroop',p);mark('drills');close()};
+  };
+  step();
+}
+/* ── التمييز ── */
+function runSense(){
+  let diff=26,lvl=0,miss=0;
+  const round=()=>{ setLvl('مستوى '+ar(lvl+1));
+    const base=rnd(360), L=52;
+    const lighter=rnd(2);
+    const cols=lighter?[`hsl(${base} 34% ${L}%)`,`hsl(${base} 34% ${L+diff/10}%)`]
+                      :[`hsl(${base} 34% ${L+diff/10}%)`,`hsl(${base} 34% ${L}%)`];
+    sBody.innerHTML=`<div class="cue">أنهي مربّع أفتح؟<br>
+      <span class="sm2">قارنهم جنب بعض — المقارنة أسهل من الحكم المنفرد، وده مقصود.</span></div>
+      <div class="swatches"><button data-i="0" style="background:${cols[0]}"></button>
+        <button data-i="1" style="background:${cols[1]}"></button></div>`;
+    sBody.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
+      const right=(+b.dataset.i===0)===(lighter===1);
+      if(right){lvl++;diff=Math.max(2,diff*0.78);miss=0;round()}
+      else{miss++;diff=Math.min(40,diff*1.35);
+        if(miss>=3)return fin();
+        sBody.innerHTML=`<div class="verdict no">غلط. بنسهّل شوية.</div>
+          ${acts('<button class="pri" id="n">كمّل</button>')}`;
+        document.getElementById('n').onclick=round;}
+    });
+  };
+  const fin=()=>{ setLvl('');
+    sBody.innerHTML=`<div class="big">${ar(lvl)}</div>
+      <div class="cue" style="margin-top:.9rem">كل مستوى الفرق بيقلّ ٢٢٪.</div>
+      <div class="verdict ${lvl>=8?'ok':''}">${lvl>=10?'تمييز عالي. بينتقل لشغلك المرئي مباشرة.':
+        lvl>=6?'كويس. التعلّم الإدراكي بيبان بعد أسابيع من التعرّض بارتجاع.':
+        'ابدأ من هنا — الرقم بيتحرك أسرع مما تتوقع.'}</div>
+      ${acts('<button class="pri" id="f">تسجيل</button>')}`;
+    document.getElementById('f').onclick=()=>{log('sense',lvl);mark('drills');close()};
+  };
+  round();
+}
+
+nav(); render(); armNotifications();
+setInterval(()=>{ if(tab==='today'&&!stage.classList.contains('open')) render(); }, 60000);
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+</script>
+</body>
+</html>
